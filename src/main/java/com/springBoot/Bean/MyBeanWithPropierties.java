@@ -1,2 +1,5 @@
-package com.springBoot.Bean;public interface MyBeanWithPropierties {
+package com.springBoot.Bean;
+
+public interface MyBeanWithPropierties {
+    String function();
 }
