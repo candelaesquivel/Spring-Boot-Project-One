@@ -1,8 +1,8 @@
 package com.springBoot.Bean;
 
-public class MyBeanImplement implements MyBean{
+public class MyBeanImplementTwo implements MyBean{
     @Override
     public void print() {
-        System.out.println("Bean Implementation");
+        System.out.println("Bean Implementation TWO");
     }
 }

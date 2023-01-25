@@ -1,2 +1,5 @@
-package com.springBoot.Bean;public interface MyBean {
+package com.springBoot.Bean;
+
+public interface MyBean {
+    void print();
 }

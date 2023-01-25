@@ -1,2 +1,5 @@
-package com.springBoot.Bean;public interface MyBeanWithDependency {
+package com.springBoot.Bean;
+
+public interface MyBeanWithDependency {
+    void printWithDependency();
 }
