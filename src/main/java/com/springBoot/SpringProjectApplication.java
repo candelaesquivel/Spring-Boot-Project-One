@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.data.domain.Sort;
 
 import java.time.LocalDate;
 import java.util.Arrays;
@@ -65,6 +64,10 @@ public class SpringProjectApplication implements CommandLineRunner {
 				"USUARIO FILTRADO POR EMAIL :  " + userRepository.findMyUserByEmail("john@domain.com")
 
 						.orElseThrow(()-> new RuntimeException("No se encontro un usuario")));
+
+		userRepository.findName("John")
+				.stream()
+				.forEach(user -> LOGGER.info("USUARIO BUSCADO POR NOMBRE "+ user));
 
 
 	}
