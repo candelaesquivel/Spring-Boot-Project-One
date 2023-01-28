@@ -69,6 +69,9 @@ public class SpringProjectApplication implements CommandLineRunner {
 				.stream()
 				.forEach(user -> LOGGER.info("USUARIO BUSCADO POR NOMBRE "+ user));
 
+		userRepository.findNameLike("%Joh%")
+				.stream()
+				.forEach(user -> LOGGER.info("USUARIO BUSCADO POR NOMBRE LIKE "+ user));
 
 	}
 	private void SaveUsersInDb() {
