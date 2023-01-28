@@ -1,10 +1,13 @@
 package com.springBoot.Controller;
 
 import com.springBoot.Entity.User;
+import com.springBoot.caseUse.CreateUser;
+import com.springBoot.caseUse.DeleteUser;
 import com.springBoot.caseUse.GetUser;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.springBoot.caseUse.UpdateUser;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -14,14 +17,39 @@ public class UserRestController {
     //create , get , delete ,update
 
     private GetUser getUser;
+    private CreateUser createUser;
+    private DeleteUser deleteUser;
 
-    public UserRestController(GetUser getUser) {
+    private UpdateUser updateUser;
+    public UserRestController(GetUser getUser
+            , CreateUser createUser, DeleteUser deleteUser , UpdateUser updateUser) {
         this.getUser = getUser;
+        this.createUser=createUser;
+        this.deleteUser=deleteUser;
+        this.updateUser=updateUser;
     }
 
-    // localhost:8081/app/api/users/  --> POSTMAN
+    // localhost:8081/app/api/users/  --> POSTMAN - GET
     @GetMapping("/")
     List<User> get(){
         return getUser.getAll();
+    }
+
+    // localhost:8081/app/api/users/  --> POSTMAN -POST
+    @PostMapping("/")
+    ResponseEntity<User> newUser (@RequestBody User newUser){
+        return new ResponseEntity<>(createUser.save(newUser), HttpStatus.CREATED);
+    }
+    // localhost:8081/app/api/users/id  --> POSTMAN -DELETE
+    @DeleteMapping("/{id}")
+    ResponseEntity deleteUser(@PathVariable Long id){
+        deleteUser.remove(id);
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
+
+    }
+    // localhost:8081/app/api/users/id  --> POSTMAN -PUT
+    @PutMapping("/{id}")
+    ResponseEntity<User> replaceUser(@RequestBody User newUser , @PathVariable Long id){
+        return updateUser.update(newUser ,id);
     }
 }

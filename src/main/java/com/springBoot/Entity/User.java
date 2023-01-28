@@ -1,5 +1,6 @@
 package com.springBoot.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
@@ -25,7 +26,6 @@ public class User {
     private LocalDate birthDay;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JsonManagedReference
     private List<Post> posts= new ArrayList<>();
 
     public User() {
@@ -35,6 +35,10 @@ public class User {
         this.name = name;
         this.email = email;
         this.birthDay = birthDay;
+    }
+
+    public User(Long id) {
+        this.id=id;
     }
 
     public Long getId() {
