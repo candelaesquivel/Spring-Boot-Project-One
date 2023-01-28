@@ -1,10 +1,12 @@
 package com.springBoot.Controller;
 
 import com.springBoot.Entity.User;
+import com.springBoot.Repository.UserRepository;
 import com.springBoot.caseUse.CreateUser;
 import com.springBoot.caseUse.DeleteUser;
 import com.springBoot.caseUse.GetUser;
 import com.springBoot.caseUse.UpdateUser;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,12 +23,16 @@ public class UserRestController {
     private DeleteUser deleteUser;
 
     private UpdateUser updateUser;
+
+    private UserRepository userRepository;
     public UserRestController(GetUser getUser
-            , CreateUser createUser, DeleteUser deleteUser , UpdateUser updateUser) {
+            , CreateUser createUser, DeleteUser deleteUser , UpdateUser updateUser ,
+                              UserRepository userRepository) {
         this.getUser = getUser;
         this.createUser=createUser;
         this.deleteUser=deleteUser;
         this.updateUser=updateUser;
+        this.userRepository=userRepository;
     }
 
     // localhost:8081/app/api/users/  --> POSTMAN - GET
@@ -52,4 +58,10 @@ public class UserRestController {
     ResponseEntity<User> replaceUser(@RequestBody User newUser , @PathVariable Long id){
         return updateUser.update(newUser ,id);
     }
+
+    @GetMapping("/pageable")
+    List<User> getUserPageable(@RequestParam int page , @RequestParam int size){
+        return userRepository.findAll(PageRequest.of(page,size)).getContent();
+    }
+
 }
