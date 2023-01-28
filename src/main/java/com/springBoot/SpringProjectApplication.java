@@ -62,8 +62,8 @@ public class SpringProjectApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		//Examples();
-		//SaveUsersInDb();
-		//getInfoJpqlFromUser();
+		SaveUsersInDb();
+		getInfoJpqlFromUser();
 		saveWithErrorTransaction();
 
 	}
